@@ -1,0 +1,14 @@
+# =============================================================================
+# Python project configuration
+# =============================================================================
+# pytest configuration follows the native TOML data model introduced in
+# pytest 9.0 (PEP 518). The [tool.pytest] table replaces the legacy
+# [tool.pytest.ini_options] compatibility mode for new projects.
+#
+# Reference: https://docs.pytest.org/en/stable/reference/customize.html
+# =============================================================================
+
+[tool.pytest.ini_options]
+minversion = "9.0"
+pythonpath = ["."]
+testpaths = ["tests"]

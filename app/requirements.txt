@@ -1,0 +1,9 @@
+# =============================================================================
+# Runtime dependencies
+# =============================================================================
+# Versions pinned with == for reproducible builds across all environments.
+# Upgrades are deliberate, version-controlled changes.
+# =============================================================================
+
+Flask==3.1.3
+gunicorn==25.3.0

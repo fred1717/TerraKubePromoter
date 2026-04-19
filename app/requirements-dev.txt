@@ -1,0 +1,11 @@
+# =============================================================================
+# Development dependencies
+# =============================================================================
+# Includes runtime dependencies via -r requirements.txt so that development
+# installs cover both. Production container images use requirements.txt only,
+# excluding test frameworks from the image.
+# =============================================================================
+
+-r requirements.txt
+
+pytest==9.0.2
