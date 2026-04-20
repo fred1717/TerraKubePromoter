@@ -59,3 +59,9 @@ variable "cluster_admin_arn" {
   description = "ARN of the IAM principal granted cluster admin access"
   type        = string
 }
+
+variable "vpc_cni_addon_version" {
+  description = "Version of the VPC CNI managed addon"
+  type        = string
+  default     = "v1.21.1-eksbuild.1"
+}

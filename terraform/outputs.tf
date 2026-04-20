@@ -86,3 +86,22 @@ output "ecr_scan_frequency" {
   description = "Active ECR scan frequency: SCAN_ON_PUSH or CONTINUOUS_SCAN"
   value       = module.ecr_scanning.scan_frequency
 }
+
+# -----------------------------------------------------------------------------
+# EKS addons
+# -----------------------------------------------------------------------------
+
+output "vpc_cni_addon_arn" {
+  description = "ARN of the VPC CNI managed addon"
+  value       = module.eks_addons.vpc_cni_addon_arn
+}
+
+output "vpc_cni_addon_version" {
+  description = "Active version of the VPC CNI managed addon"
+  value       = module.eks_addons.vpc_cni_addon_version
+}
+
+output "network_policy_enabled" {
+  description = "Whether NetworkPolicy enforcement is active on the VPC CNI"
+  value       = module.eks_addons.network_policy_enabled
+}

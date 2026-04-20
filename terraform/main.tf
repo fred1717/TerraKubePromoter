@@ -92,6 +92,19 @@ module "eks" {
 }
 
 # -----------------------------------------------------------------------------
+# EKS addons — managed addons (VPC CNI with NetworkPolicy enforcement)
+# -----------------------------------------------------------------------------
+
+module "eks_addons" {
+  source = "./modules/eks_addons"
+
+  cluster_name          = module.eks.cluster_name
+  vpc_cni_addon_version = var.vpc_cni_addon_version
+
+  depends_on = [module.eks]
+}
+
+# -----------------------------------------------------------------------------
 # ECR — container registry for the Flask application image
 # -----------------------------------------------------------------------------
 

@@ -15,3 +15,5 @@ node_desired_count = 2
 node_min_count     = 1
 node_max_count     = 3
 cluster_admin_arn  = "arn:aws:iam::180294215772:user/Malik"
+vpc_cni_addon_version = "v1.21.1-eksbuild.1"
+
