@@ -1,0 +1,17 @@
+# =============================================================================
+# Example variable values
+# =============================================================================
+# Copy this file to terraform.tfvars and update the values.
+# terraform.tfvars is excluded from version control via .gitignore.
+# =============================================================================
+
+aws_region         = "us-east-1"
+project_name       = "terrakubepromoter"
+environment        = "dev"
+repository_url     = "https://github.com/fred1717/TerraKubePromoter"
+cluster_version    = "1.35"
+node_instance_type = "t3.medium"
+node_desired_count = 2
+node_min_count     = 1
+node_max_count     = 3
+cluster_admin_arn  = "arn:aws:iam::180294215772:user/Malik"
