@@ -1,0 +1,24 @@
+# =============================================================================
+# Dev namespace ResourceQuota
+# =============================================================================
+# Bounds aggregate resource consumption to prevent a misconfiguration from
+# exhausting cluster capacity. Uniform across all 3 environments (dev,
+# staging, production) for simplicity: the 2-node cluster cannot host
+# materially different loads.
+#
+# Every pod in this namespace must declare CPU and memory requests AND limits,
+# otherwise the admission controller rejects pod creation. The base Deployment
+# already complies.
+# =============================================================================
+
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: terrakubepromoter-app
+spec:
+  hard:
+    requests.cpu: 500m
+    requests.memory: 512Mi
+    limits.cpu: "2"
+    limits.memory: 1Gi
+    pods: "10"

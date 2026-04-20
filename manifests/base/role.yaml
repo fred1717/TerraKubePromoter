@@ -1,0 +1,22 @@
+# =============================================================================
+# Base Role for the Flask API
+# =============================================================================
+# Empty placeholder — the Flask API does not call the Kubernetes API.
+# The Role exists to demonstrate the RBAC pattern and to be ready for future
+# permissions (for example, reading a ConfigMap or watching a Secret).
+#
+# Any future rule must:
+#   - be scoped to specific resources (no wildcards)
+#   - use the minimum verbs required (get, list, watch — not "*")
+#   - follow the least-privilege principle
+# =============================================================================
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: terrakubepromoter-app
+  labels:
+    app.kubernetes.io/name: terrakubepromoter-app
+    app.kubernetes.io/component: api
+    app.kubernetes.io/part-of: terrakubepromoter
+rules: []

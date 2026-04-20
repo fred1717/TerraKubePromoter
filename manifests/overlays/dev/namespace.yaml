@@ -1,0 +1,25 @@
+# =============================================================================
+# Dev namespace
+# =============================================================================
+# Pod Security Standards enforced at namespace level:
+#   - enforce: restricted — blocks any pod that violates the restricted profile
+#   - audit: restricted   — logs violations to the audit log
+#   - warn: restricted    — returns a user-facing warning on violation
+# Versions pinned to v1.35 (cluster minor version) to prevent silent behaviour
+# changes on future Kubernetes upgrades.
+# =============================================================================
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: terrakubepromoter-dev
+  labels:
+    app.kubernetes.io/name: terrakubepromoter-app
+    app.kubernetes.io/part-of: terrakubepromoter
+    app.kubernetes.io/instance: terrakubepromoter-dev
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/enforce-version: v1.35
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/audit-version: v1.35
+    pod-security.kubernetes.io/warn: restricted
+    pod-security.kubernetes.io/warn-version: v1.35

@@ -1,0 +1,25 @@
+# =============================================================================
+# Base Service for the Flask API
+# =============================================================================
+# Type: ClusterIP — internal access only.
+# External exposure (Ingress) is out of scope for this track.
+# =============================================================================
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: terrakubepromoter-app
+  labels:
+    app.kubernetes.io/name: terrakubepromoter-app
+    app.kubernetes.io/component: api
+    app.kubernetes.io/part-of: terrakubepromoter
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: terrakubepromoter-app
+    app.kubernetes.io/component: api
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+      protocol: TCP

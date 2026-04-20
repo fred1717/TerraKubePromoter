@@ -1,0 +1,23 @@
+# =============================================================================
+# Base Kustomization for the Flask API
+# =============================================================================
+# Declares the 5 base resources and applies common labels to all of them.
+# Overlays reference this base via `resources: [../../base]`.
+# =============================================================================
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - deployment.yaml
+  - service.yaml
+  - serviceaccount.yaml
+  - role.yaml
+  - rolebinding.yaml
+
+labels:
+  - includeSelectors: true
+    pairs:
+      app.kubernetes.io/name: terrakubepromoter-app
+      app.kubernetes.io/component: api
+      app.kubernetes.io/part-of: terrakubepromoter

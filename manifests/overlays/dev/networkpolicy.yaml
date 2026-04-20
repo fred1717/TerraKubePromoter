@@ -1,0 +1,96 @@
+# =============================================================================
+# Dev namespace NetworkPolicy — default-deny with explicit allow rules
+# =============================================================================
+# Default stance: deny all ingress and egress traffic to/from every pod in
+# this namespace.
+# Explicit allow rules:
+#   - ingress from pods in the same namespace on port 8000 (the Flask API)
+#   - egress to kube-system DNS on UDP 53 and TCP 53 (mandatory — default-deny
+#     egress blocks DNS resolution)
+#   - egress to the Kubernetes API server on TCP 443 (for future
+#     ServiceAccount token validation, even though automountServiceAccountToken
+#     is currently disabled)
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Default-deny for all pods in the namespace
+# -----------------------------------------------------------------------------
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-all
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+---
+# -----------------------------------------------------------------------------
+# Allow DNS egress to kube-system
+# -----------------------------------------------------------------------------
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns-egress
+spec:
+  podSelector: {}
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+---
+# -----------------------------------------------------------------------------
+# Allow egress to the Kubernetes API server
+# -----------------------------------------------------------------------------
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-kube-apiserver-egress
+spec:
+  podSelector: {}
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: default
+          podSelector:
+            matchLabels:
+              component: apiserver
+              provider: kubernetes
+      ports:
+        - protocol: TCP
+          port: 443
+---
+# -----------------------------------------------------------------------------
+# Allow ingress to the Flask API from same-namespace pods
+# -----------------------------------------------------------------------------
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-app-ingress-same-namespace
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: terrakubepromoter-app
+      app.kubernetes.io/component: api
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector: {}
+      ports:
+        - protocol: TCP
+          port: 8000
