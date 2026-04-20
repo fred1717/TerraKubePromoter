@@ -12,6 +12,8 @@ override.tf.json
 *_override.tf.json
 *.tfvars
 !*.tfvars.example
+*.tfplan
+tfplan
 
 # ============================================================================
 # Python
@@ -22,6 +24,7 @@ __pycache__/
 *.so
 .Python
 venv/
+.venv/
 env/
 *.egg-info/
 dist/
