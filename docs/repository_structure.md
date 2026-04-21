@@ -38,9 +38,30 @@ TerraKubePromoter
 │   │   └── 0003-use-lightweight-flask-workload.md
 │   └── repository_structure.md
 ├── manifests
-│   ├── dev
-│   ├── production
-│   └── staging
+│   ├── base
+│   │   ├── deployment.yaml
+│   │   ├── kustomization.yaml
+│   │   ├── role.yaml
+│   │   ├── rolebinding.yaml
+│   │   ├── service.yaml
+│   │   └── serviceaccount.yaml
+│   ├── components
+│   │   └── networkpolicy
+│   │       ├── kustomization.yaml
+│   │       └── networkpolicy.yaml
+│   └── overlays
+│       ├── dev
+│       │   ├── kustomization.yaml
+│       │   ├── namespace.yaml
+│       │   └── resourcequota.yaml
+│       ├── production
+│       │   ├── kustomization.yaml
+│       │   ├── namespace.yaml
+│       │   └── resourcequota.yaml
+│       └── staging
+│           ├── kustomization.yaml
+│           ├── namespace.yaml
+│           └── resourcequota.yaml
 ├── terraform
 │   ├── modules
 │   │   ├── backend
@@ -56,6 +77,10 @@ TerraKubePromoter
 │   │   │   ├── outputs.tf
 │   │   │   └── variables.tf
 │   │   ├── eks
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
+│   │   ├── eks_addons
 │   │   │   ├── main.tf
 │   │   │   ├── outputs.tf
 │   │   │   └── variables.tf
@@ -81,5 +106,10 @@ TerraKubePromoter
 ├── .gitignore
 └── README.md
 
-21 directories, 44 files
+26 directories, 64 files
+
+
+
+
+
 
