@@ -27,12 +27,12 @@ labels:
     includeTemplates: true
     pairs:
       app.kubernetes.io/instance: terrakubepromoter-production
-      app.kubernetes.io/version: 0.1.2
+      app.kubernetes.io/version: 0.1.3
 
 images:
   - name: terrakubepromoter-app
     newName: 180294215772.dkr.ecr.us-east-1.amazonaws.com/terrakubepromoter-dev-app
-    digest: "sha256:68328fe86e4bcba973fde1ca0b241f781da2a0f1fe59eae799c1b4bc2f107b15"
+    digest: "sha256:c40def269ce25d0bcace22e78772bbd354cca0444b826b27b161c387d244b524"
 
 patches:
   - target:
@@ -44,4 +44,4 @@ patches:
         value: 3
       - op: replace
         path: /spec/template/spec/containers/0/env/1/value
-        value: "d4d92a3"
+        value: "0854d11"
