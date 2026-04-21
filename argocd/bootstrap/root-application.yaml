@@ -1,0 +1,35 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj.io/application_v1alpha1.json
+# =============================================================================
+# Root Application — app-of-apps bootstrap
+# Watches argocd/ at the repository root and reconciles the AppProject
+# and the 3 child Applications declaratively (per Decision 15)
+# =============================================================================
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: terrakubepromoter-root
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/fred1717/TerraKubePromoter
+    targetRevision: HEAD
+    path: argocd
+    directory:
+      recurse: true
+      exclude: "bootstrap/*"
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true

@@ -1,0 +1,59 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj.io/appproject_v1alpha1.json
+# =============================================================================
+# AppProject — TerraKubePromoter
+# Scopes Applications to a single Git repository, 3 workload namespaces,
+# and a restricted set of Kubernetes resource kinds (per Decision 6)
+# =============================================================================
+
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: terrakubepromoter
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: "GitOps promotion across dev, staging, and production for TerraKubePromoter"
+
+  # ---------------------------------------------------------------------------
+  # Source repositories (locked to the single project repository)
+  # ---------------------------------------------------------------------------
+  sourceRepos:
+    - https://github.com/fred1717/TerraKubePromoter
+
+  # ---------------------------------------------------------------------------
+  # Destinations (3 workload namespaces on the in-cluster server)
+  # ---------------------------------------------------------------------------
+  destinations:
+    - namespace: terrakubepromoter-dev
+      server: https://kubernetes.default.svc
+    - namespace: terrakubepromoter-staging
+      server: https://kubernetes.default.svc
+    - namespace: terrakubepromoter-production
+      server: https://kubernetes.default.svc
+
+  # ---------------------------------------------------------------------------
+  # Cluster-scoped resources (only Namespace, required by the overlays)
+  # ---------------------------------------------------------------------------
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace
+
+  # ---------------------------------------------------------------------------
+  # Namespace-scoped resources (exhaustive list of kinds used by the overlays)
+  # ---------------------------------------------------------------------------
+  namespaceResourceWhitelist:
+    - group: ""
+      kind: Service
+    - group: ""
+      kind: ServiceAccount
+    - group: ""
+      kind: ResourceQuota
+    - group: apps
+      kind: Deployment
+    - group: rbac.authorization.k8s.io
+      kind: Role
+    - group: rbac.authorization.k8s.io
+      kind: RoleBinding
+    - group: networking.k8s.io
+      kind: NetworkPolicy

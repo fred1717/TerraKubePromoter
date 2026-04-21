@@ -1,0 +1,106 @@
+# =============================================================================
+# Helm values for the argo-cd chart
+# Overrides chart defaults to align with decisions in section 5.4
+# =============================================================================
+
+global:
+  image:
+    tag: "v3.3.7"
+
+# -----------------------------------------------------------------------------
+# ArgoCD configuration (argocd-cm ConfigMap and argocd-cmd-params-cm ConfigMap)
+# -----------------------------------------------------------------------------
+
+configs:
+  cm:
+    application.resourceTrackingMethod: "annotation+label"
+    timeout.reconciliation: "180s"
+
+# -----------------------------------------------------------------------------
+# Application controller (non-HA)
+# -----------------------------------------------------------------------------
+
+controller:
+  replicas: 1
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "256Mi"
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+
+# -----------------------------------------------------------------------------
+# Server (non-HA, ClusterIP only)
+# -----------------------------------------------------------------------------
+
+server:
+  replicas: 1
+  service:
+    type: "ClusterIP"
+  resources:
+    requests:
+      cpu: "50m"
+      memory: "128Mi"
+    limits:
+      cpu: "200m"
+      memory: "256Mi"
+
+# -----------------------------------------------------------------------------
+# Repo server (non-HA)
+# -----------------------------------------------------------------------------
+
+repoServer:
+  replicas: 1
+  resources:
+    requests:
+      cpu: "50m"
+      memory: "128Mi"
+    limits:
+      cpu: "200m"
+      memory: "256Mi"
+
+# -----------------------------------------------------------------------------
+# ApplicationSet controller (non-HA)
+# -----------------------------------------------------------------------------
+
+applicationSet:
+  replicaCount: 1
+  resources:
+    requests:
+      cpu: "50m"
+      memory: "64Mi"
+    limits:
+      cpu: "100m"
+      memory: "128Mi"
+
+# -----------------------------------------------------------------------------
+# Notifications controller — disabled (out of scope per section 5.1)
+# -----------------------------------------------------------------------------
+
+notifications:
+  enabled: false
+
+# -----------------------------------------------------------------------------
+# Dex server — disabled (no SSO per section 5.1)
+# -----------------------------------------------------------------------------
+
+dex:
+  enabled: false
+
+# -----------------------------------------------------------------------------
+# Redis (non-HA per Decision 3)
+# -----------------------------------------------------------------------------
+
+redis:
+  enabled: true
+  resources:
+    requests:
+      cpu: "50m"
+      memory: "64Mi"
+    limits:
+      cpu: "100m"
+      memory: "128Mi"
+
+redis-ha:
+  enabled: false

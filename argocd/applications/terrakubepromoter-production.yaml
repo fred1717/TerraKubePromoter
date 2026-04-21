@@ -1,0 +1,33 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj.io/application_v1alpha1.json
+# =============================================================================
+# Application — TerraKubePromoter production
+# ArgoCD reconciles the production overlay from Git into the
+# terrakubepromoter-production namespace on the in-cluster server
+# =============================================================================
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: terrakubepromoter-production
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: terrakubepromoter
+
+  source:
+    repoURL: https://github.com/fred1717/TerraKubePromoter
+    targetRevision: HEAD
+    path: manifests/overlays/production
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: terrakubepromoter-production
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=false
+      - ServerSideApply=true
