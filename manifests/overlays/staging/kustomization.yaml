@@ -26,12 +26,12 @@ labels:
     includeTemplates: true
     pairs:
       app.kubernetes.io/instance: terrakubepromoter-staging
-      app.kubernetes.io/version: 0.1.2
+      app.kubernetes.io/version: 0.1.3
 
 images:
   - name: terrakubepromoter-app
     newName: 180294215772.dkr.ecr.us-east-1.amazonaws.com/terrakubepromoter-dev-app
-    newTag: "0.1.2"
+    newTag: "0.1.3"
 
 patches:
   - target:
@@ -43,4 +43,4 @@ patches:
         value: 2
       - op: replace
         path: /spec/template/spec/containers/0/env/1/value
-        value: "d4d92a3"
+        value: "0854d11"
