@@ -1,8 +1,11 @@
 # =============================================================================
-# Dev namespace NetworkPolicy — default-deny with explicit allow rules
+# Shared NetworkPolicy component
 # =============================================================================
+# Default-deny with explicit allow rules, applicable to every environment.
+# Consumed by each overlay via the `components:` field in kustomization.yaml.
+#
 # Default stance: deny all ingress and egress traffic to/from every pod in
-# this namespace.
+# the namespace.
 # Explicit allow rules:
 #   - ingress from pods in the same namespace on port 8000 (the Flask API)
 #   - egress to kube-system DNS on UDP 53 and TCP 53 (mandatory — default-deny
@@ -19,6 +22,10 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: default-deny-all
+  labels:
+    app.kubernetes.io/name: terrakubepromoter-app
+    app.kubernetes.io/component: api
+    app.kubernetes.io/part-of: terrakubepromoter
 spec:
   podSelector: {}
   policyTypes:
@@ -32,6 +39,10 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: allow-dns-egress
+  labels:
+    app.kubernetes.io/name: terrakubepromoter-app
+    app.kubernetes.io/component: api
+    app.kubernetes.io/part-of: terrakubepromoter
 spec:
   podSelector: {}
   policyTypes:
@@ -57,6 +68,10 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: allow-kube-apiserver-egress
+  labels:
+    app.kubernetes.io/name: terrakubepromoter-app
+    app.kubernetes.io/component: api
+    app.kubernetes.io/part-of: terrakubepromoter
 spec:
   podSelector: {}
   policyTypes:
@@ -81,6 +96,10 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: allow-app-ingress-same-namespace
+  labels:
+    app.kubernetes.io/name: terrakubepromoter-app
+    app.kubernetes.io/component: api
+    app.kubernetes.io/part-of: terrakubepromoter
 spec:
   podSelector:
     matchLabels:

@@ -1,17 +1,18 @@
 # =============================================================================
-# Dev overlay
+# Production overlay
 # =============================================================================
 # References the base and layers environment-specific concerns:
-#   - namespace transformer: applies terrakubepromoter-dev to all resources
+#   - namespace transformer: applies terrakubepromoter-production to all
+#     resources
 #   - image transformer: replaces the base placeholder with the ECR image
 #   - labels: adds app.kubernetes.io/instance and app.kubernetes.io/version
-#   - patches: sets replica count (1) and the GIT_SHA environment variable
+#   - patches: sets replica count (3) and the GIT_SHA environment variable
 # =============================================================================
 
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: terrakubepromoter-dev
+namespace: terrakubepromoter-production
 
 resources:
   - ../../base
@@ -25,13 +26,13 @@ labels:
   - includeSelectors: false
     includeTemplates: true
     pairs:
-      app.kubernetes.io/instance: terrakubepromoter-dev
+      app.kubernetes.io/instance: terrakubepromoter-production
       app.kubernetes.io/version: 0.1.2
 
 images:
   - name: terrakubepromoter-app
     newName: 180294215772.dkr.ecr.us-east-1.amazonaws.com/terrakubepromoter-dev-app
-    newTag: "0.1.2"
+    digest: "sha256:68328fe86e4bcba973fde1ca0b241f781da2a0f1fe59eae799c1b4bc2f107b15"
 
 patches:
   - target:
@@ -40,7 +41,7 @@ patches:
     patch: |-
       - op: replace
         path: /spec/replicas
-        value: 1
+        value: 3
       - op: replace
         path: /spec/template/spec/containers/0/env/1/value
         value: "d4d92a3"

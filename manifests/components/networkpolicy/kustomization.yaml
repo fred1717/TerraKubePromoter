@@ -1,0 +1,13 @@
+# =============================================================================
+# NetworkPolicy component
+# =============================================================================
+# Shared NetworkPolicy resources consumed by every overlay.
+# kind: Component (not Kustomization) — components can be referenced via the
+# `components:` field in an overlay's kustomization.yaml.
+# =============================================================================
+
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+resources:
+  - networkpolicy.yaml
