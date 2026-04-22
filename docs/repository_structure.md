@@ -31,6 +31,19 @@ TerraKubePromoter
 │   ├── pyproject.toml
 │   ├── requirements-dev.txt
 │   └── requirements.txt
+├── argocd
+│   ├── applications
+│   │   ├── terrakubepromoter-dev.yaml
+│   │   ├── terrakubepromoter-production.yaml
+│   │   └── terrakubepromoter-staging.yaml
+│   ├── bootstrap
+│   │   └── root-application.yaml
+│   ├── projects
+│   │   └── terrakubepromoter.yaml
+│   ├── main.tf
+│   ├── outputs.tf
+│   ├── values.yaml
+│   └── variables.tf
 ├── docs
 │   ├── ADR
 │   │   ├── 0001-select-gitops-with-argocd.md
@@ -64,6 +77,11 @@ TerraKubePromoter
 │           └── resourcequota.yaml
 ├── terraform
 │   ├── modules
+│   │   ├── argocd
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   ├── values.yaml
+│   │   │   └── variables.tf
 │   │   ├── backend
 │   │   │   ├── main.tf
 │   │   │   ├── outputs.tf
@@ -106,8 +124,7 @@ TerraKubePromoter
 ├── .gitignore
 └── README.md
 
-26 directories, 64 files
-
+31 directories, 77 files
 
 
 
