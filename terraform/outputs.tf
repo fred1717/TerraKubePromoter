@@ -105,3 +105,22 @@ output "network_policy_enabled" {
   description = "Whether NetworkPolicy enforcement is active on the VPC CNI"
   value       = module.eks_addons.network_policy_enabled
 }
+
+# -----------------------------------------------------------------------------
+# ArgoCD
+# -----------------------------------------------------------------------------
+
+output "argocd_namespace" {
+  description = "Kubernetes namespace where ArgoCD is installed"
+  value       = module.argocd.namespace
+}
+
+output "argocd_chart_version" {
+  description = "Active version of the argo-cd Helm chart"
+  value       = module.argocd.chart_version
+}
+
+output "argocd_app_version" {
+  description = "Active version of the ArgoCD application embedded in the chart"
+  value       = module.argocd.app_version
+}

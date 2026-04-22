@@ -65,3 +65,15 @@ variable "vpc_cni_addon_version" {
   type        = string
   default     = "v1.21.1-eksbuild.1"
 }
+
+variable "argocd_chart_version" {
+  description = "Version of the argo-cd Helm chart from argoproj/argo-helm"
+  type        = string
+  default     = "9.5.2"
+}
+
+variable "argocd_app_version" {
+  description = "Version of the ArgoCD application embedded in the chart"
+  type        = string
+  default     = "v3.3.7"
+}

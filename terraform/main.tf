@@ -122,3 +122,16 @@ module "ecr" {
 module "ecr_scanning" {
   source = "./modules/ecr_scanning"
 }
+
+# -----------------------------------------------------------------------------
+# ArgoCD — GitOps control plane installed via Helm
+# -----------------------------------------------------------------------------
+
+module "argocd" {
+  source = "./modules/argocd"
+
+  argocd_chart_version = var.argocd_chart_version
+  argocd_app_version   = var.argocd_app_version
+
+  depends_on = [module.eks_addons]
+}
