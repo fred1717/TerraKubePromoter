@@ -67,8 +67,7 @@ jobs:
       - name: Build and push with bake
         uses: docker/bake-action@a66e1c87e2eca0503c343edf1d208c716d54b8a8  # v7.1.0
         with:
-          workdir: app
-          files: docker-bake.hcl
+          files: app/docker-bake.hcl
           push: true
           set: |
             app.args.APP_VERSION=${{ steps.version.outputs.tag }}

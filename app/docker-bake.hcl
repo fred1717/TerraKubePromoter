@@ -15,7 +15,7 @@
 # =============================================================================
 
 variable "APP_VERSION" {
-  default = "0.1.2"
+  default = ""
 }
 
 variable "GIT_SHA" {
@@ -31,16 +31,16 @@ group "default" {
 }
 
 target "app" {
-  context    = "."
+  context    = "./app"
   dockerfile = "Dockerfile"
 
 args = {
-    APP_VERSION = APP_VERSION
+    APP_VERSION = equal("", APP_VERSION) ? trimspace(file("./VERSION")) : APP_VERSION
     GIT_SHA     = GIT_SHA
   }
 
   tags = [
-    "${IMAGE_NAME}:${APP_VERSION}",
+    "${IMAGE_NAME}:${equal("", APP_VERSION) ? trimspace(file("./VERSION")) : APP_VERSION}",
   ]
 
   # Attestation controls — required for ECR basic scanning compatibility.
