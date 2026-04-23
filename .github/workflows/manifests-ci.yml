@@ -1,0 +1,46 @@
+name: manifests-ci
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - manifests/**
+      - .github/workflows/manifests-ci.yml
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: kustomize-build-and-kubeconform
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        overlay:
+          - dev
+          - staging
+          - production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+
+      - name: Install kubeconform
+        run: |
+          curl -fsSL -o /tmp/kubeconform.tar.gz https://github.com/yannh/kubeconform/releases/download/v0.6.7/kubeconform-linux-amd64.tar.gz
+          tar -xzf /tmp/kubeconform.tar.gz -C /tmp kubeconform
+          sudo mv /tmp/kubeconform /usr/local/bin/kubeconform
+          kubeconform -v
+
+      - name: Render overlay
+        run: kustomize build manifests/overlays/${{ matrix.overlay }} > /tmp/rendered.yaml
+
+      - name: Validate with kubeconform
+        run: |
+          kubeconform -strict -summary -kubernetes-version 1.35.0 -schema-location default -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json' /tmp/rendered.yaml
