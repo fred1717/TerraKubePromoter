@@ -27,7 +27,7 @@ images:
   newTag: 0.1.3
 - name: terrakubepromoter-dev-app
   newName: 180294215772.dkr.ecr.us-east-1.amazonaws.com/terrakubepromoter-dev-app
-  newTag: 0.1.3-c8463c5
+  newTag: 0.1.3-f2243bf
 patches:
 - patch: |-
     - op: replace
