@@ -26,4 +26,7 @@ configuration_values = jsonencode({
 
   resolve_conflicts_on_create = "OVERWRITE"
   resolve_conflicts_on_update = "PRESERVE"
+  tags = {
+    Name = "${var.cluster_name}-vpc-cni"
+  }
 }

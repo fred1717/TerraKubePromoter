@@ -83,6 +83,9 @@ resource "aws_iam_openid_connect_provider" "eks" {
 resource "aws_eks_access_entry" "admin" {
   cluster_name  = aws_eks_cluster.main.name
   principal_arn = var.cluster_admin_arn
+  tags = {
+    Name = "${local.name_prefix}-admin-access"
+  }
 }
 
 resource "aws_eks_access_policy_association" "admin" {

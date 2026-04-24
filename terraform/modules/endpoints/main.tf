@@ -35,6 +35,9 @@ resource "aws_vpc_security_group_ingress_rule" "endpoints_https" {
   from_port         = 443
   to_port           = 443
   cidr_ipv4         = var.vpc_cidr
+  tags = {
+    Name = "${local.name_prefix}-endpoints-https-ingress"
+  }
 }
 
 # -----------------------------------------------------------------------------
