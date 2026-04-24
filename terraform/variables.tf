@@ -77,3 +77,17 @@ variable "argocd_app_version" {
   type        = string
   default     = "v3.3.7"
 }
+
+# -----------------------------------------------------------------------------
+# GitHub OIDC federation
+# -----------------------------------------------------------------------------
+
+variable "github_org" {
+  description = "GitHub organisation or user that owns the repository"
+  type        = string
+}
+
+variable "github_repo" {
+  description = "GitHub repository name"
+  type        = string
+}

@@ -36,6 +36,20 @@ output "oidc_provider_arn" {
 }
 
 # -----------------------------------------------------------------------------
+# AWS context
+# -----------------------------------------------------------------------------
+
+output "aws_region" {
+  description = "AWS region the stack is deployed in"
+  value       = var.aws_region
+}
+
+output "project_name" {
+  description = "Project name, used as the lowercase project tag value"
+  value       = var.project_name
+}
+
+# -----------------------------------------------------------------------------
 # VPC
 # -----------------------------------------------------------------------------
 
@@ -123,4 +137,37 @@ output "argocd_chart_version" {
 output "argocd_app_version" {
   description = "Active version of the ArgoCD application embedded in the chart"
   value       = module.argocd.app_version
+}
+
+# -----------------------------------------------------------------------------
+# GitHub OIDC
+# -----------------------------------------------------------------------------
+
+output "gha_ecr_push_role_arn" {
+  description = "ARN of the role assumed by app-ci.yml to push images to ECR"
+  value       = module.github_oidc.ecr_push_role_arn
+}
+
+output "gha_terraform_role_arn" {
+  description = "ARN of the role assumed by terraform-ci.yml to apply Terraform"
+  value       = module.github_oidc.terraform_role_arn
+}
+
+output "gha_promote_role_arn" {
+  description = "ARN of the role assumed by promote.yml to read ECR image digests"
+  value       = module.github_oidc.promote_role_arn
+}
+
+# -----------------------------------------------------------------------------
+# GitHub repository
+# -----------------------------------------------------------------------------
+
+output "github_org" {
+  description = "GitHub organisation or user that owns the repository"
+  value       = var.github_org
+}
+
+output "github_repo" {
+  description = "GitHub repository name"
+  value       = var.github_repo
 }

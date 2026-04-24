@@ -12,11 +12,11 @@
 
 terraform {
   backend "s3" {
-    bucket         = "terrakubepromoter-dev-tfstate"
-    key            = "terraform.tfstate"
-    region         = "us-east-1"
-    use_lockfile   = true
-    encrypt        = true
+    bucket       = "terrakubepromoter-dev-tfstate"
+    key          = "terraform.tfstate"
+    region       = "us-east-1"
+    use_lockfile = true
+    encrypt      = true
   }
 }
 
@@ -60,12 +60,12 @@ module "vpc" {
 module "endpoints" {
   source = "./modules/endpoints"
 
-  project_name       = var.project_name
-  environment        = var.environment
-  vpc_id             = module.vpc.vpc_id
-  vpc_cidr           = module.vpc.vpc_cidr
-  private_subnet_ids = module.vpc.private_subnet_ids
-  aws_region         = var.aws_region
+  project_name           = var.project_name
+  environment            = var.environment
+  vpc_id                 = module.vpc.vpc_id
+  vpc_cidr               = module.vpc.vpc_cidr
+  private_subnet_ids     = module.vpc.private_subnet_ids
+  aws_region             = var.aws_region
   private_route_table_id = module.vpc.private_route_table_id
 }
 
@@ -134,4 +134,17 @@ module "argocd" {
   argocd_app_version   = var.argocd_app_version
 
   depends_on = [module.eks_addons]
+}
+
+# -----------------------------------------------------------------------------
+# GitHub OIDC — federation provider and IAM roles for GitHub Actions
+# -----------------------------------------------------------------------------
+
+module "github_oidc" {
+  source = "./modules/github_oidc"
+
+  github_org                 = var.github_org
+  github_repo                = var.github_repo
+  ecr_repository_arn         = module.ecr.repository_arn
+  terraform_state_bucket_arn = "arn:aws:s3:::${var.project_name}-${var.environment}-tfstate"
 }
