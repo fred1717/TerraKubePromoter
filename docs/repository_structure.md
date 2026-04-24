@@ -18,15 +18,25 @@ This also excludes the contents of '.git' and '.idea' directories.
 TerraKubePromoter
 ├── .github
 │   └── workflows
+│       ├── app-ci.yml
+│       ├── manifests-ci.yml
+│       ├── promote.yml
+│       └── terraform-ci.yml
 ├── app
 │   ├── src
+│   │   ├── main.egg-info
+│   │   │   ├── PKG-INFO
+│   │   │   ├── SOURCES.txt
+│   │   │   ├── dependency_links.txt
+│   │   │   └── top_level.txt
 │   │   ├── --init--.py
 │   │   └── main.py
 │   ├── tests
-│   │   ├── --init--.py
+│   │   ├── __init__.py
 │   │   └── test_main.py
 │   ├── .dockerignore
 │   ├── Dockerfile
+│   ├── VERSION
 │   ├── docker-bake.hcl
 │   ├── pyproject.toml
 │   ├── requirements-dev.txt
@@ -75,6 +85,11 @@ TerraKubePromoter
 │           ├── kustomization.yaml
 │           ├── namespace.yaml
 │           └── resourcequota.yaml
+├── scripts
+│   ├── configure-github-repo.sh
+│   ├── resolve-action-shas.sh
+│   ├── verify-oidc-roles.sh
+│   └── verify-tagging.sh
 ├── terraform
 │   ├── modules
 │   │   ├── argocd
@@ -106,6 +121,10 @@ TerraKubePromoter
 │   │   │   ├── main.tf
 │   │   │   ├── outputs.tf
 │   │   │   └── variables.tf
+│   │   ├── github_oidc
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
 │   │   ├── iam
 │   │   │   ├── main.tf
 │   │   │   ├── outputs.tf
@@ -122,11 +141,11 @@ TerraKubePromoter
 │   ├── variables.tf
 │   └── versions.tf
 ├── .gitignore
-└── README.md
+├── README.md
+├── image-1.png
+└── image.png
 
-31 directories, 77 files
-
-
+34 directories, 95 files
 
 
 
