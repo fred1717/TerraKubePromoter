@@ -66,6 +66,21 @@ variable "vpc_cni_addon_version" {
   default     = "v1.21.1-eksbuild.1"
 }
 
+variable "availability_zones" {
+  description = "List of availability zones the subnets are spread across"
+  type        = list(string)
+}
+
+variable "public_subnet_cidrs" {
+  description = "List of CIDR blocks for the public subnets, paired by index with availability_zones"
+  type        = list(string)
+}
+
+variable "private_subnet_cidrs" {
+  description = "List of CIDR blocks for the private subnets, paired by index with availability_zones"
+  type        = list(string)
+}
+
 variable "argocd_chart_version" {
   description = "Version of the argo-cd Helm chart from argoproj/argo-helm"
   type        = string

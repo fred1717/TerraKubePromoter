@@ -32,7 +32,7 @@ output "cluster_certificate_authority" {
 
 output "oidc_provider_arn" {
   description = "ARN of the OIDC provider for IRSA"
-  value       = module.eks.oidc_provider_arn
+  value       = module.oidc.eks_irsa_provider_arn
 }
 
 # -----------------------------------------------------------------------------
@@ -60,12 +60,12 @@ output "vpc_id" {
 
 output "private_subnet_ids" {
   description = "List of private subnet IDs"
-  value       = module.vpc.private_subnet_ids
+  value       = module.subnets.private_subnet_ids
 }
 
 output "public_subnet_ids" {
   description = "List of public subnet IDs"
-  value       = module.vpc.public_subnet_ids
+  value       = module.subnets.public_subnet_ids
 }
 
 # -----------------------------------------------------------------------------
@@ -145,17 +145,17 @@ output "argocd_app_version" {
 
 output "gha_ecr_push_role_arn" {
   description = "ARN of the role assumed by app-ci.yml to push images to ECR"
-  value       = module.github_oidc.ecr_push_role_arn
+  value       = module.cicd_iam_roles.ecr_push_role_arn
 }
 
 output "gha_terraform_role_arn" {
   description = "ARN of the role assumed by terraform-ci.yml to apply Terraform"
-  value       = module.github_oidc.terraform_role_arn
+  value       = module.cicd_iam_roles.terraform_role_arn
 }
 
 output "gha_promote_role_arn" {
   description = "ARN of the role assumed by promote.yml to read ECR image digests"
-  value       = module.github_oidc.promote_role_arn
+  value       = module.cicd_iam_roles.promote_role_arn
 }
 
 # -----------------------------------------------------------------------------
