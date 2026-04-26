@@ -8,20 +8,6 @@ locals {
 }
 
 # -----------------------------------------------------------------------------
-# OIDC provider
-# -----------------------------------------------------------------------------
-
-resource "aws_iam_openid_connect_provider" "github" {
-  url             = "https://${local.github_oidc_url}"
-  client_id_list  = ["sts.amazonaws.com"]
-  thumbprint_list = []
-
-  tags = {
-    Name = "github-actions-oidc"
-  }
-}
-
-# -----------------------------------------------------------------------------
 # Trust policy documents
 # -----------------------------------------------------------------------------
 
@@ -32,7 +18,7 @@ data "aws_iam_policy_document" "trust_main_branch" {
 
     principals {
       type        = "Federated"
-      identifiers = [aws_iam_openid_connect_provider.github.arn]
+      identifiers = [var.github_actions_provider_arn]
     }
 
     condition {
@@ -56,7 +42,7 @@ data "aws_iam_policy_document" "trust_production_environment" {
 
     principals {
       type        = "Federated"
-      identifiers = [aws_iam_openid_connect_provider.github.arn]
+      identifiers = [var.github_actions_provider_arn]
     }
 
     condition {

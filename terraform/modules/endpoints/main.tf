@@ -15,32 +15,6 @@ locals {
 }
 
 # -----------------------------------------------------------------------------
-# Security group for interface endpoints
-# -----------------------------------------------------------------------------
-
-resource "aws_security_group" "endpoints" {
-  name        = "${local.name_prefix}-endpoints-sg"
-  description = "Allow HTTPS from within the VPC to interface endpoints"
-  vpc_id      = var.vpc_id
-
-  tags = {
-    Name = "${local.name_prefix}-endpoints-sg"
-  }
-}
-
-resource "aws_vpc_security_group_ingress_rule" "endpoints_https" {
-  security_group_id = aws_security_group.endpoints.id
-  description       = "HTTPS from VPC CIDR"
-  ip_protocol       = "tcp"
-  from_port         = 443
-  to_port           = 443
-  cidr_ipv4         = var.vpc_cidr
-  tags = {
-    Name = "${local.name_prefix}-endpoints-https-ingress"
-  }
-}
-
-# -----------------------------------------------------------------------------
 # Interface endpoints
 # -----------------------------------------------------------------------------
 
@@ -52,7 +26,7 @@ resource "aws_vpc_endpoint" "interface" {
   vpc_endpoint_type   = "Interface"
   private_dns_enabled = true
   subnet_ids          = var.private_subnet_ids
-  security_group_ids  = [aws_security_group.endpoints.id]
+  security_group_ids  = [var.endpoints_security_group_id]
 
   tags = {
     Name = "${local.name_prefix}-${each.key}"

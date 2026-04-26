@@ -17,3 +17,8 @@ variable "terraform_state_bucket_arn" {
   description = "ARN of the S3 bucket holding the Terraform state"
   type        = string
 }
+
+variable "github_actions_provider_arn" {
+  description = "ARN of the GitHub Actions OIDC provider, sourced from the oidc module"
+  type        = string
+}

@@ -17,11 +17,6 @@ variable "vpc_id" {
   type        = string
 }
 
-variable "vpc_cidr" {
-  description = "CIDR block of the VPC for security group rules"
-  type        = string
-}
-
 variable "private_subnet_ids" {
   description = "List of private subnet IDs for endpoint network interfaces"
   type        = list(string)
@@ -34,5 +29,10 @@ variable "aws_region" {
 
 variable "private_route_table_id" {
   description = "ID of the private route table for the S3 gateway endpoint"
+  type        = string
+}
+
+variable "endpoints_security_group_id" {
+  description = "ID of the security group attached to the interface endpoints, sourced from the security_groups module"
   type        = string
 }
