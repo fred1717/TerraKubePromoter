@@ -15,7 +15,7 @@ This also excludes the contents of '.git' and '.idea' directories.
 `.git|.idea`: exclude any file or directory whose name matches `.git` or `.idea`.
     The pipe `|` separates multiple patterns.
 
-TerraKubePromoter
+
 ├── .github
 │   └── workflows
 │       ├── app-ci.yml
@@ -101,6 +101,10 @@ TerraKubePromoter
 │   │   │   ├── main.tf
 │   │   │   ├── outputs.tf
 │   │   │   └── variables.tf
+│   │   ├── cicd_iam_roles
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
 │   │   ├── ecr
 │   │   │   ├── main.tf
 │   │   │   ├── outputs.tf
@@ -121,11 +125,36 @@ TerraKubePromoter
 │   │   │   ├── main.tf
 │   │   │   ├── outputs.tf
 │   │   │   └── variables.tf
-│   │   ├── github_oidc
+│   │   ├── iam
 │   │   │   ├── main.tf
 │   │   │   ├── outputs.tf
 │   │   │   └── variables.tf
-│   │   ├── iam
+│   │   ├── iam_policies
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
+│   │   ├── iam_roles
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
+│   │   ├── nat
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
+│   │   ├── oidc
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   ├── variables.tf
+│   │   │   └── versions.tf
+│   │   ├── route_tables
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
+│   │   ├── security_groups
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── variables.tf
+│   │   ├── subnets
 │   │   │   ├── main.tf
 │   │   │   ├── outputs.tf
 │   │   │   └── variables.tf
@@ -141,11 +170,7 @@ TerraKubePromoter
 │   ├── variables.tf
 │   └── versions.tf
 ├── .gitignore
-├── README.md
-├── image-1.png
-└── image.png
+└── README.md
 
-34 directories, 95 files
-
-
+41 directories, 115 files
 
