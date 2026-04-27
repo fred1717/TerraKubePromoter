@@ -22,11 +22,30 @@ The project delivers 2 components:
 **Portfolio narrative**
 "Infrastructure is provisioned by Terraform, workloads are delivered by Git, and nothing runs that is not defined in code."
 
+**Architecture diagram**
+The full architecture is captured in `docs/diagrams/terrakubepromoter-architecture.svg`.
+
+![TerraKubePromoter architecture](docs/diagrams/terrakubepromoter-architecture.svg)
+
+The diagram covers:
+- the developer workstation and the GitHub repository, with the 4 GitHub Actions workflows
+- GitHub OIDC federation into 3 least-privilege IAM roles in the AWS account
+- ECR (immutable tags, registry-wide scanning) and the S3 backend bucket for Terraform state
+- the VPC layout (2 availability zones, public and private subnets, NAT Gateway, Internet Gateway, VPC endpoints)
+- the EKS cluster, with the `argocd` namespace and the 3 workload namespaces (dev, staging, production)
+- the 4-step GitOps loop, the promotion model, and a legend
 **Scope boundaries**
 - Out of scope: progressive delivery (Argo Rollouts), SSO, public ingress, multi-cluster
 - Single AWS region: `us-east-1`
 - Single AWS account: `180294215772`
 
+**Commit `docs/diagrams/terrakubepromoter-architecture.svg` to GitHub**
+```bash
+COMMIT_MSG="docs: add architecture diagram and reference it in README section 0"
+git add docs/diagrams/terrakubepromoter-architecture.svg README.md
+git commit -m "${COMMIT_MSG}"
+git push origin main
+```
 
 
 ## 1. Repository

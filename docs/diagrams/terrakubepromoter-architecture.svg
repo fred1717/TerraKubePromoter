@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 1700 1300"
+     preserveAspectRatio="xMidYMid meet"
+     font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+
+  <defs>
+    <style><![CDATA[
+      .title         { font-size: 30px; font-weight: 700; fill: #0F1F3D; }
+      .subtitle      { font-size: 15px; fill: #4B5563; }
+      .section-hdr   { font-size: 16px; font-weight: 700; fill: #0F1F3D; }
+      .container-hdr { font-size: 15px; font-weight: 700; fill: #0F1F3D; }
+      .svc-name      { font-size: 13px; font-weight: 700; fill: #0F1F3D; }
+      .svc-detail    { font-size: 11px; fill: #4B5563; }
+      .ns-name       { font-size: 12px; font-weight: 700; fill: #0F1F3D; }
+      .tiny          { font-size: 10px; fill: #4B5563; }
+      .arrow-lbl     { font-size: 11px; font-weight: 600; fill: #D4862F; }
+      .trust-lbl     { font-size: 11px; fill: #4B5563; font-style: italic; }
+      .step-num      { font-size: 12px; font-weight: 700; fill: #FFFFFF; }
+      .loop-step     { font-size: 11px; fill: #0F1F3D; }
+      .loop-step-b   { font-size: 11px; font-weight: 700; fill: #0F1F3D; }
+
+      .container-aws    { fill: #FFFFFF; stroke: #0F1F3D; stroke-width: 2; }
+      .container-vpc    { fill: #F1F5F9; stroke: #0F1F3D; stroke-width: 1.5; stroke-dasharray: 8 4; }
+      .container-subnet { fill: #FAFAFA; stroke: #94A3B8; stroke-width: 1; stroke-dasharray: 4 3; }
+      .container-eks    { fill: #FFFFFF; stroke: #0F1F3D; stroke-width: 2; }
+
+      .svc-box   { fill: #FFFFFF; stroke: #0F1F3D; stroke-width: 1.5; }
+      .svc-soft  { fill: #F8FAFC; stroke: #94A3B8; stroke-width: 1; }
+      .ns-box    { fill: #FFFFFF; stroke: #94A3B8; stroke-width: 1; }
+      .ns-accent { fill: #D4862F; }
+
+      .arrow-critical { stroke: #D4862F; stroke-width: 2.5; fill: none; }
+      .arrow-support  { stroke: #0F1F3D; stroke-width: 1.2; fill: none; }
+      .arrow-trust    { stroke: #4B5563; stroke-width: 1; stroke-dasharray: 5 3; fill: none; }
+
+      .step-circle    { fill: #D4862F; stroke: #FFFFFF; stroke-width: 2; }
+      .loop-box       { fill: #FFFBEB; stroke: #D4862F; stroke-width: 1.5; }
+    ]]></style>
+
+    <marker id="m-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#D4862F"/>
+    </marker>
+    <marker id="m-navy" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#0F1F3D"/>
+    </marker>
+    <marker id="m-grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#4B5563"/>
+    </marker>
+  </defs>
+
+  <rect width="1700" height="1300" fill="#FFFFFF"/>
+
+  <text x="850" y="38" text-anchor="middle" class="title">TerraKubePromoter — Architecture</text>
+  <text x="850" y="62" text-anchor="middle" class="subtitle">GitOps delivery on AWS EKS · region us-east-1 · single-account portfolio project</text>
+
+  <g transform="translate(40, 110)">
+    <rect x="0" y="0" width="200" height="220" rx="6" class="svc-soft"/>
+    <text x="100" y="28" text-anchor="middle" class="container-hdr">Developer</text>
+    <circle cx="100" cy="90" r="24" fill="#FFFFFF" stroke="#0F1F3D" stroke-width="2"/>
+    <path d="M 60 165 q 40 -55 80 0 z" fill="#FFFFFF" stroke="#0F1F3D" stroke-width="2"/>
+    <text x="100" y="200" text-anchor="middle" class="svc-detail">Local workstation</text>
+  </g>
+
+  <line x1="240" y1="220" x2="290" y2="220" class="arrow-critical" marker-end="url(#m-amber)"/>
+  <circle cx="265" cy="206" r="11" class="step-circle"/>
+  <text x="265" y="210" text-anchor="middle" class="step-num">1</text>
+
+  <g transform="translate(290, 110)">
+    <rect x="0" y="0" width="1370" height="220" rx="6" class="svc-box"/>
+    <text x="20" y="28" class="container-hdr">GitHub · fred1717/TerraKubePromoter</text>
+    <text x="20" y="48" class="svc-detail">manifests/overlays/{dev,staging,production}/kustomization.yaml — image tag (dev, staging) or digest (production) committed via Git</text>
+
+    <g transform="translate(20, 70)">
+      <rect x="0" y="0" width="320" height="130" rx="4" class="svc-soft"/>
+      <text x="14" y="22" class="svc-name">app-ci.yml</text>
+      <text x="14" y="44" class="svc-detail">Trigger: push to main, app/** or dev overlay</text>
+      <text x="14" y="62" class="svc-detail">Jobs: test → build → push → update-dev-overlay</text>
+      <text x="14" y="80" class="svc-detail">pytest · docker buildx bake · ECR push</text>
+      <text x="14" y="98" class="svc-detail">commits new tag to dev overlay</text>
+      <text x="14" y="118" class="tiny">least-privilege IAM via OIDC</text>
+      <circle cx="304" cy="14" r="11" class="step-circle"/>
+      <text x="304" y="18" text-anchor="middle" class="step-num">2</text>
+    </g>
+
+    <g transform="translate(354, 70)">
+      <rect x="0" y="0" width="320" height="130" rx="4" class="svc-soft"/>
+      <text x="14" y="22" class="svc-name">manifests-ci.yml</text>
+      <text x="14" y="44" class="svc-detail">Trigger: pull_request on manifests/**</text>
+      <text x="14" y="62" class="svc-detail">kustomize build (per overlay)</text>
+      <text x="14" y="80" class="svc-detail">kubeconform strict · K8s 1.35</text>
+      <text x="14" y="98" class="svc-detail">Datree CRDs catalogue (ArgoCD CRDs)</text>
+      <text x="14" y="118" class="tiny">parallel jobs · fail-fast: false</text>
+    </g>
+
+    <g transform="translate(688, 70)">
+      <rect x="0" y="0" width="320" height="130" rx="4" class="svc-soft"/>
+      <text x="14" y="22" class="svc-name">terraform-ci.yml</text>
+      <text x="14" y="44" class="svc-detail">PR: fmt · init · validate · plan -out=tfplan</text>
+      <text x="14" y="62" class="svc-detail">plan posted as PR comment</text>
+      <text x="14" y="80" class="svc-detail">main: apply (production environment)</text>
+      <text x="14" y="98" class="svc-detail">required reviewer gate</text>
+      <text x="14" y="118" class="tiny">S3 backend · use_lockfile = true</text>
+    </g>
+
+    <g transform="translate(1022, 70)">
+      <rect x="0" y="0" width="320" height="130" rx="4" class="svc-soft"/>
+      <text x="14" y="22" class="svc-name">promote.yml</text>
+      <text x="14" y="44" class="svc-detail">Trigger: workflow_dispatch (manual)</text>
+      <text x="14" y="62" class="svc-detail">Inputs: source env, target env, image tag</text>
+      <text x="14" y="80" class="svc-detail">kustomize edit set image (tag or digest)</text>
+      <text x="14" y="98" class="svc-detail">commits target overlay</text>
+      <text x="14" y="118" class="tiny">production gated, digest enforced</text>
+    </g>
+  </g>
+
+  <line x1="490" y1="330" x2="290" y2="475" class="arrow-trust" marker-end="url(#m-grey)"/>
+  <line x1="975" y1="330" x2="790" y2="475" class="arrow-trust" marker-end="url(#m-grey)"/>
+  <line x1="1182" y1="330" x2="1290" y2="475" class="arrow-trust" marker-end="url(#m-grey)"/>
+  <text x="850" y="385" text-anchor="middle" class="trust-lbl">GitHub OIDC federation · AssumeRoleWithWebIdentity · sub claim scoped per role</text>
+
+  <g transform="translate(30, 410)">
+    <rect x="0" y="0" width="1640" height="660" rx="8" class="container-aws"/>
+    <text x="20" y="28" class="section-hdr">AWS account xxxxxxxx5772 · region us-east-1</text>
+    <text x="20" y="48" class="svc-detail">Tagging: project=terrakubepromoter (default_tags) · Name set explicitly per resource</text>
+
+    <g transform="translate(20, 60)">
+      <rect x="0" y="0" width="500" height="80" rx="4" class="svc-soft"/>
+      <text x="14" y="22" class="svc-name">IAM · gha-ecr-push-role</text>
+      <text x="14" y="40" class="svc-detail">Trust: sub ends with :ref:refs/heads/main</text>
+      <text x="14" y="58" class="svc-detail">Permissions: ECR push/pull on project repo</text>
+      <text x="14" y="74" class="tiny">+ ecr:GetAuthorizationToken (cannot be resource-scoped)</text>
+
+      <rect x="520" y="0" width="500" height="80" rx="4" class="svc-soft"/>
+      <text x="534" y="22" class="svc-name">IAM · gha-terraform-role</text>
+      <text x="534" y="40" class="svc-detail">Trust: sub ends with :environment:production</text>
+      <text x="534" y="58" class="svc-detail">Permissions: AdministratorAccess</text>
+      <text x="534" y="74" class="tiny">+ inline policy on Terraform state bucket</text>
+
+      <rect x="1040" y="0" width="500" height="80" rx="4" class="svc-soft"/>
+      <text x="1054" y="22" class="svc-name">IAM · gha-promote-role</text>
+      <text x="1054" y="40" class="svc-detail">Trust: sub ends with :environment:production</text>
+      <text x="1054" y="58" class="svc-detail">Permissions: ecr:DescribeImages only</text>
+      <text x="1054" y="74" class="tiny">commit itself uses GITHUB_TOKEN</text>
+    </g>
+
+    <g transform="translate(20, 160)">
+      <rect x="0" y="0" width="780" height="100" rx="4" class="svc-box"/>
+      <text x="14" y="22" class="svc-name">Amazon ECR · terrakubepromoter-dev-app</text>
+      <text x="14" y="42" class="svc-detail">image_tag_mutability: IMMUTABLE · SCAN_ON_PUSH (registry-wide)</text>
+      <text x="14" y="60" class="svc-detail">tags per image: &lt;semver&gt; and &lt;git-sha-short&gt;</text>
+      <text x="14" y="78" class="svc-detail">lifecycle: keep last 10 tagged · expire untagged after 7 days</text>
+      <text x="14" y="94" class="tiny">single repository serves all 3 environments — separation is a manifest concern</text>
+
+      <rect x="800" y="0" width="740" height="100" rx="4" class="svc-box"/>
+      <text x="814" y="22" class="svc-name">Amazon S3 · terrakubepromoter-dev-tfstate</text>
+      <text x="814" y="42" class="svc-detail">Terraform remote state backend</text>
+      <text x="814" y="60" class="svc-detail">use_lockfile = true (S3 native locking, replaces DynamoDB)</text>
+      <text x="814" y="78" class="svc-detail">versioning · default encryption · public access blocked</text>
+      <text x="814" y="94" class="tiny">preserved across teardowns by deliberate state rm of module.backend</text>
+    </g>
+
+    <g transform="translate(20, 280)">
+      <rect x="0" y="0" width="1600" height="360" rx="6" class="container-vpc"/>
+      <text x="14" y="22" class="container-hdr">VPC · 10.0.0.0/16 · 2 availability zones</text>
+
+      <g transform="translate(1400, -14)">
+        <rect x="0" y="0" width="180" height="28" rx="4" class="svc-box"/>
+        <text x="90" y="18" text-anchor="middle" class="svc-name">Internet Gateway</text>
+      </g>
+
+      <g transform="translate(20, 38)">
+        <rect x="0" y="0" width="770" height="80" rx="4" class="container-subnet"/>
+        <text x="12" y="18" class="svc-name">Public subnet · AZ-a</text>
+        <rect x="14" y="26" width="220" height="50" rx="4" class="svc-box"/>
+        <text x="124" y="46" text-anchor="middle" class="svc-name">NAT Gateway</text>
+        <text x="124" y="64" text-anchor="middle" class="tiny">+ Elastic IP · egress for ArgoCD git poll</text>
+
+        <rect x="800" y="0" width="770" height="80" rx="4" class="container-subnet"/>
+        <text x="812" y="18" class="svc-name">Public subnet · AZ-b</text>
+        <text x="812" y="40" class="svc-detail">Reserved for HA expansion · no resources at present</text>
+      </g>
+
+      <g transform="translate(20, 130)">
+        <rect x="0" y="0" width="770" height="216" rx="4" class="container-subnet"/>
+        <text x="12" y="18" class="svc-name">Private subnet · AZ-a</text>
+
+        <rect x="800" y="0" width="770" height="216" rx="4" class="container-subnet"/>
+        <text x="812" y="18" class="svc-name">Private subnet · AZ-b</text>
+
+        <g transform="translate(14, 28)">
+          <rect x="0" y="0" width="400" height="58" rx="4" class="svc-box"/>
+          <text x="12" y="18" class="svc-name">VPC endpoints</text>
+          <text x="12" y="34" class="svc-detail">Interface: ECR API · ECR DKR · STS · EKS · CloudWatch Logs</text>
+          <text x="12" y="50" class="tiny">Gateway: S3</text>
+          <circle cx="384" cy="14" r="11" class="step-circle"/>
+          <text x="384" y="18" text-anchor="middle" class="step-num">4</text>
+        </g>
+
+        <g transform="translate(14, 96)">
+          <rect x="0" y="0" width="1542" height="112" rx="6" class="container-eks"/>
+          <text x="16" y="20" class="container-hdr">Amazon EKS · cluster terrakubepromoter-dev</text>
+          <text x="16" y="38" class="svc-detail">Kubernetes 1.35 · auth: API_AND_CONFIG_MAP · IRSA OIDC · Managed node group AL2023_x86_64_STANDARD (2 nodes)</text>
+          <text x="16" y="54" class="svc-detail">Add-on: VPC CNI · NetworkPolicy enforcement (nodeAgent.enabled = true) · ECR pull via node IAM role</text>
+
+          <g transform="translate(16, 64)">
+            <rect x="0" y="0" width="370" height="42" rx="4" class="ns-box"/>
+            <rect x="0" y="0" width="4" height="42" class="ns-accent"/>
+            <text x="14" y="18" class="ns-name">namespace · argocd</text>
+            <text x="14" y="34" class="tiny">PSS restricted · AppProject + 4 Applications (app-of-apps)</text>
+            <circle cx="354" cy="14" r="11" class="step-circle"/>
+            <text x="354" y="18" text-anchor="middle" class="step-num">3</text>
+          </g>
+
+          <g transform="translate(396, 64)">
+            <rect x="0" y="0" width="370" height="42" rx="4" class="ns-box"/>
+            <rect x="0" y="0" width="4" height="42" class="ns-accent"/>
+            <text x="14" y="18" class="ns-name">terrakubepromoter-dev</text>
+            <text x="14" y="34" class="tiny">1 replica · image: tag · default-deny NetworkPolicy</text>
+          </g>
+
+          <g transform="translate(776, 64)">
+            <rect x="0" y="0" width="370" height="42" rx="4" class="ns-box"/>
+            <rect x="0" y="0" width="4" height="42" class="ns-accent"/>
+            <text x="14" y="18" class="ns-name">terrakubepromoter-staging</text>
+            <text x="14" y="34" class="tiny">2 replicas · image: tag · default-deny NetworkPolicy</text>
+          </g>
+
+          <g transform="translate(1156, 64)">
+            <rect x="0" y="0" width="370" height="42" rx="4" class="ns-box"/>
+            <rect x="0" y="0" width="4" height="42" class="ns-accent"/>
+            <text x="14" y="18" class="ns-name">terrakubepromoter-production</text>
+            <text x="14" y="34" class="tiny" fill="#D4862F">3 replicas · image: digest (sha256) · supply-chain pin</text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(40, 1100)">
+    <rect x="0" y="0" width="640" height="180" rx="6" class="loop-box"/>
+    <text x="16" y="24" class="section-hdr">GitOps loop · numbered steps on the diagram</text>
+
+    <g transform="translate(16, 40)">
+      <circle cx="12" cy="12" r="11" class="step-circle"/>
+      <text x="12" y="16" text-anchor="middle" class="step-num">1</text>
+      <text x="34" y="10" class="loop-step-b">Developer pushes to GitHub</text>
+      <text x="34" y="24" class="loop-step">commit on main triggers app-ci.yml</text>
+    </g>
+
+    <g transform="translate(16, 75)">
+      <circle cx="12" cy="12" r="11" class="step-circle"/>
+      <text x="12" y="16" text-anchor="middle" class="step-num">2</text>
+      <text x="34" y="10" class="loop-step-b">app-ci.yml builds and pushes the image to ECR</text>
+      <text x="34" y="24" class="loop-step">then commits the new tag into the dev overlay</text>
+    </g>
+
+    <g transform="translate(16, 110)">
+      <circle cx="12" cy="12" r="11" class="step-circle"/>
+      <text x="12" y="16" text-anchor="middle" class="step-num">3</text>
+      <text x="34" y="10" class="loop-step-b">ArgoCD polls GitHub every 3 minutes via the NAT Gateway</text>
+      <text x="34" y="24" class="loop-step">detects overlay change · reconciles target namespace · prune · selfHeal</text>
+    </g>
+
+    <g transform="translate(16, 145)">
+      <circle cx="12" cy="12" r="11" class="step-circle"/>
+      <text x="12" y="16" text-anchor="middle" class="step-num">4</text>
+      <text x="34" y="10" class="loop-step-b">kubelet pulls image from ECR via VPC interface endpoint</text>
+      <text x="34" y="24" class="loop-step">no public internet path · auth via node IAM role</text>
+    </g>
+  </g>
+
+  <g transform="translate(700, 1100)">
+    <rect x="0" y="0" width="640" height="180" rx="6" class="loop-box"/>
+    <text x="16" y="24" class="section-hdr">Promotion model · dev → staging → production</text>
+
+    <g transform="translate(16, 44)">
+      <text x="0" y="10" class="loop-step-b">dev</text>
+      <text x="0" y="26" class="loop-step">app-ci.yml updates dev overlay automatically on every push to main</text>
+    </g>
+
+    <g transform="translate(16, 84)">
+      <text x="0" y="10" class="loop-step-b">staging</text>
+      <text x="0" y="26" class="loop-step">promote.yml (manual) updates staging overlay with the dev image tag</text>
+    </g>
+
+    <g transform="translate(16, 124)">
+      <text x="0" y="10" class="loop-step-b">production</text>
+      <text x="0" y="26" class="loop-step">promote.yml updates production overlay with the staging image digest (not tag)</text>
+      <text x="0" y="44" class="tiny" fill="#D4862F">required reviewer gate · supply-chain integrity via sha256 digest pin</text>
+    </g>
+  </g>
+
+  <g transform="translate(1360, 1100)">
+    <rect x="0" y="0" width="300" height="180" rx="6" class="svc-soft"/>
+    <text x="16" y="24" class="section-hdr">Legend</text>
+
+    <g transform="translate(16, 44)">
+      <line x1="0" y1="8" x2="40" y2="8" class="arrow-critical" marker-end="url(#m-amber)"/>
+      <text x="50" y="12" class="loop-step">Critical path (GitOps loop)</text>
+    </g>
+
+    <g transform="translate(16, 70)">
+      <line x1="0" y1="8" x2="40" y2="8" class="arrow-trust" marker-end="url(#m-grey)"/>
+      <text x="50" y="12" class="loop-step">OIDC trust / authentication</text>
+    </g>
+
+    <g transform="translate(16, 96)">
+      <circle cx="12" cy="8" r="11" class="step-circle"/>
+      <text x="12" y="12" text-anchor="middle" class="step-num">N</text>
+      <text x="34" y="12" class="loop-step">GitOps loop step (1 to 4)</text>
+    </g>
+
+    <g transform="translate(16, 124)">
+      <rect x="0" y="0" width="40" height="20" rx="3" class="ns-box"/>
+      <rect x="0" y="0" width="4" height="20" class="ns-accent"/>
+      <text x="50" y="14" class="loop-step">Kubernetes namespace</text>
+    </g>
+
+    <g transform="translate(16, 152)">
+      <rect x="0" y="0" width="40" height="20" rx="3" class="container-vpc"/>
+      <text x="50" y="14" class="loop-step">VPC / subnet boundary</text>
+    </g>
+  </g>
+
+</svg>
