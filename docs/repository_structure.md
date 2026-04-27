@@ -15,7 +15,7 @@ This also excludes the contents of '.git' and '.idea' directories.
 `.git|.idea`: exclude any file or directory whose name matches `.git` or `.idea`.
     The pipe `|` separates multiple patterns.
 
-
+TerraKubePromoter
 ├── .github
 │   └── workflows
 │       ├── app-ci.yml
@@ -59,6 +59,8 @@ This also excludes the contents of '.git' and '.idea' directories.
 │   │   ├── 0001-select-gitops-with-argocd.md
 │   │   ├── 0002-exclude-argo-rollouts-from-scope.md
 │   │   └── 0003-use-lightweight-flask-workload.md
+│   ├── diagrams
+│   │   └── terrakubepromoter-architecture.svg
 │   ├── images
 │   │   ├── Billing&CostManagement_DataExports_27april2026-10h59.png
 │   │   ├── Cost&UsageReport_April2026.png
@@ -178,5 +180,4 @@ This also excludes the contents of '.git' and '.idea' directories.
 ├── .gitignore
 └── README.md
 
-42 directories, 120 files
-
+43 directories, 121 files
