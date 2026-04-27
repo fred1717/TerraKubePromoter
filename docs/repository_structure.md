@@ -59,6 +59,12 @@ This also excludes the contents of '.git' and '.idea' directories.
 │   │   ├── 0001-select-gitops-with-argocd.md
 │   │   ├── 0002-exclude-argo-rollouts-from-scope.md
 │   │   └── 0003-use-lightweight-flask-workload.md
+│   ├── images
+│   │   ├── Billing&CostManagement_DataExports_27april2026-10h59.png
+│   │   ├── Cost&UsageReport_April2026.png
+│   │   ├── TagEditor_query1_27april2026-10h12.png
+│   │   ├── TagEditor_query2_27april2026-10h23.png
+│   │   └── UserDefinedCostAllocationTags_27april2026-10h34.png
 │   └── repository_structure.md
 ├── manifests
 │   ├── base
@@ -172,5 +178,5 @@ This also excludes the contents of '.git' and '.idea' directories.
 ├── .gitignore
 └── README.md
 
-41 directories, 115 files
+42 directories, 120 files
 
